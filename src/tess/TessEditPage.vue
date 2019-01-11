@@ -25,7 +25,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="tessMAC">MAC</label>
-              <input :disabled="!isEnable" type="text" v-model="tess.mac" v-validate="'required'" name="tessMAC" class="form-control" :class="{ 'is-invalid': submitted && errors.has('tessMAC') }" placeholder="Type TESS mac" />
+              <input :disabled="!isEnable" type="text" v-model="tess.mac" v-validate="'required'" name="tessMAC" class="form-control" :class="{ 'is-invalid': submitted && errors.has('tessMAC') }" placeholder="Type TESS mac (AA:BB:CC:DD:EE:FF)" />
               <div v-if="submitted && errors.has('tessMAC')" class="invalid-feedback">{{ errors.first('tessMAC') }}</div>
             </div>
             <div class="form-group col-md-3">
@@ -299,6 +299,13 @@ export default {
         alert("TESS mac is required");
         return;
       }
+
+      var mac = this.tess.mac.replace(/[^a-zA-Z0-9]/g, '');
+      if (mac.length !== 12) {
+        alert("TESS mac format incorrect");
+        return;
+      }
+      this.tess.mac = mac.match(new RegExp('.{2}', 'g')).join(':');
 
       //console.log("handleSubmit")
       this.submitted = true;
