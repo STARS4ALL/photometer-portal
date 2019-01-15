@@ -242,7 +242,8 @@ export default {
       isEnable: false,
       isNew: false,
       adminToken: null,
-      tess_dashboard: config.grafanaURL
+      tess_dashboard: config.grafanaURL,
+      old_info_location: null
     }
   },
   computed: {
@@ -321,11 +322,16 @@ export default {
 
           //console.log(this.tess)
           this.updating = true;
-          console.log({
-            tess: this.tess,
-            token: this.adminToken
-          })
+          //console.log({
+          //  tess: this.tess,
+          //  token: this.adminToken
+          //})
 
+          if (JSON.stringify(this.old_info_location) !== JSON.stringify(this.tess.info_location) ){
+            this.tess.info_location.country = null;
+            this.tess.info_location.region = null;
+            this.tess.info_location.sub_region = null;
+          }
 
           this.update({
             tess_req: {
@@ -385,11 +391,13 @@ export default {
         tess_mac: mac
       }).then(
         response => {
-          console.log(response);
+          //console.log(response);
           this.tess = this.parseTESS(response);
           this.tess_name = this.tess.name;
           this.tess_mac = this.tess.mac;
           this.loading = false;
+
+          this.old_info_location = this.tess.info_location;
 
           this.tess_dashboard = config.grafanaURL + '/d/datasheet_' + this.tess.name + '/' + this.tess.name + '?orgId=1';
         },
@@ -406,7 +414,7 @@ export default {
       if (!tess) {
         return tess;
       }
-      console.log(tess)
+      //console.log(tess)
 
       if (!("info_org" in tess) || !tess["info_org"]) {
         tess["info_org"] = {};
