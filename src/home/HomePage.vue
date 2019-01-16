@@ -36,7 +36,7 @@
                 <select v-model="tess_selected">
                   <option v-for="option in tess_list" v-bind:value="[option.name,option.mac]">
                     {{ option.mac ?"":"*" }}
-                    {{ option.name }}
+                    {{ option.name }}&emsp;
                     {{ "info_location" in option?
               ("country" in option.info_location?(option.info_location.country+", "):"")
               +("town" in option.info_location?( option.info_location.town+", "):"")
@@ -118,6 +118,9 @@ export default {
     this.getAll(this.account.app_user.admin_user.user.token).then(
       response => {
 
+      response.sort((a,b) => (parseInt(a.name.match(/\d+/)[0]) > parseInt(b.name.match(/\d+/)[0])) ? 1 :-1);
+
+
         this.tess_list = response;
 
       },
@@ -128,7 +131,8 @@ export default {
     this.getNew(this.account.app_user.admin_user.user.token).then(
       response => {
 
-        this.tess_new = response;
+
+        this.tess_new = response.filter((t) => t.startsWith("stars"));//response;
 
       },
       error => {
