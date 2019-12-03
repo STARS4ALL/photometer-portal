@@ -30,12 +30,14 @@
             </div>
             <div class="form-group col-md-3">
               <label for="tessPeriod">Period (seconds)</label>
-              <input :disabled="!isEnable" type="number" v-model="tess.info_tess.period" v-validate="'required'" name="tessPeriod" class="form-control" :class="{ 'is-invalid': submitted && errors.has('tessPeriod') }" placeholder="Type period (seconds)" />
+              <input :disabled="!isEnable" type="number" v-model="tess.info_tess.period" v-validate="'required'" name="tessPeriod" class="form-control" :class="{ 'is-invalid': submitted && errors.has('tessPeriod') }"
+                placeholder="Type period (seconds)" />
               <div v-if="submitted && errors.has('tessPeriod')" class="invalid-feedback">{{ errors.first('tessPeriod') }}</div>
             </div>
             <div class="form-group col-md-3">
               <label for="tessLocalTimezone">Local Timezone</label>
-              <input :disabled="!isEnable" type="text" v-model="tess.info_tess.local_timezone" name="tessLocalTimezone" class="form-control" :class="{ 'is-invalid': submitted && errors.has('tessLocalTimezone') }" placeholder="Type local UTC: UTC+1" />
+              <input :disabled="!isEnable" type="text" v-model="tess.info_tess.local_timezone" name="tessLocalTimezone" class="form-control" :class="{ 'is-invalid': submitted && errors.has('tessLocalTimezone') }"
+                placeholder="Type local UTC: UTC+1" />
               <div v-if="submitted && errors.has('tessLocalTimezone')" class="invalid-feedback">{{ errors.first('tessLocalTimezone') }}</div>
             </div>
             <div class="form-group col-md-3">
@@ -144,7 +146,7 @@
             </div>
             <div class="form-group">
               <label for="contactMail">Mail</label>
-              <input type="email" v-model="tess.info_contact.mail" name="contactMail" class="form-control" :class="{ 'is-invalid': submitted && errors.has('contactMail') }" placeholder="Type contact mail" />
+              <input type="email" multiple v-model="tess.info_contact.mail" name="contactMail" class="form-control" :class="{ 'is-invalid': submitted && errors.has('contactMail') }" placeholder="Type contact mail" />
               <div v-if="submitted && errors.has('contactMail')" class="invalid-feedback">{{ errors.first('contactMail') }}</div>
             </div>
             <div class="form-group " style="display:none">
@@ -199,8 +201,6 @@
           </div>
         </div>      </div>
             </div>
-
-
 
 
   </form>
@@ -327,12 +327,12 @@ export default {
           //  token: this.adminToken
           //})
 
-          if (JSON.stringify(this.old_info_location) !== JSON.stringify(this.tess.info_location) ){
+          if (JSON.stringify(this.old_info_location) !== JSON.stringify(this.tess.info_location)) {
             this.tess.info_location.country = null;
             this.tess.info_location.region = null;
             this.tess.info_location.sub_region = null;
           }
-
+/*
           this.update({
             tess_req: {
               name: this.tess_name,
@@ -365,7 +365,7 @@ export default {
               this.updating = false;
             }
           );
-
+*/
         } else {
           alert("Please, check all required fields");
         }
