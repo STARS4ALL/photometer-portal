@@ -332,7 +332,6 @@ export default {
             this.tess.info_location.region = null;
             this.tess.info_location.sub_region = null;
           }
-/*
           this.update({
             tess_req: {
               name: this.tess_name,
@@ -365,7 +364,6 @@ export default {
               this.updating = false;
             }
           );
-*/
         } else {
           alert("Please, check all required fields");
         }
